@@ -27,7 +27,7 @@
   ],
   "scripts": {
     "format": "prettier . --write",
-    "postinstall": "is-ci || husky install",
+    "prepare": "is-ci || husky install",
     "lint": "npm-run-all --parallel lint:*",
     "lint:formatting": "prettier . --check",
     "lint:js": "eslint . --cache --max-warnings=0",
