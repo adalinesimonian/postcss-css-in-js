@@ -2,6 +2,9 @@
 
 const getTemplate = require('./get-template');
 const loadSyntax = require('postcss-syntax/load-syntax');
+const templateParse = require('./template-parse');
+const templateSafeParse = require('./template-safe-parse');
+const templateStringify = require('./template-stringify');
 const { parse, types, traverse, loadOptions } = require('@babel/core');
 
 const isStyleSheetCreate = expectAdjacentSibling(['create']);
@@ -434,7 +437,11 @@ function literalParser(source, opts, styles) {
 				end: expressionNode.end,
 			}));
 
-			style.syntax = loadSyntax(opts, __dirname);
+			style.syntax = loadSyntax(opts, {
+				parse: templateParse,
+				safeParse: templateSafeParse,
+				stringify: templateStringify,
+			});
 			style.lang = 'template-literal';
 			style.opts = {
 				quasis,
